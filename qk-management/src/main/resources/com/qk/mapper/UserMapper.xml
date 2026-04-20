@@ -1,6 +1,57 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.qk.mapper.UserMapper">
+    <update id="updayeUser">
+        update user
+        <set>
+            <if test="username != null and username.length()>0">
+                username = #{username},
+            </if>
+            <if test="password != null and password.length()>0">
+                password = #{password},
+            </if>
+            <if test="name != null and name.length()>0">
+                name = #{name},
+            </if>
+            <if test="phone != null and phone.length()>0">
+                phone = #{phone},
+            </if>
+            <if test="email != null and email.length()>0">
+                email = #{email},
+            </if>
+            <if test="gender != null">
+                gender = #{gender},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="deptId != null">
+                dept_id = #{deptId},
+            </if>
+            <if test="roleId != null">
+                role_id = #{roleId},
+            </if>
+            <if test="image != null and image.length()>0">
+                image = #{image},
+            </if>
+            <if test="remark != null and remark.length()>0">
+                remark = #{remark},
+            </if>
+            update_time = #{updateTime}
+        </set>
+        where id=#{id}
+    </update>
+    <delete id="deleteUser">
+        <!--foreach的写法
+          <foreach collection="被遍历的集合" item= "变量名" separator="分隔符",open="前缀",close="后缀"
+            #{变量名}
+            </foreach>
+            -->
+        delete from user where id in
+                         <foreach collection="ids" item="id" separator="," open="(" close=")">
+                             #{id}
+                         </foreach>
+    </delete>
     <select id="SelectUser" resultType="com.qk.entity.User">
         select
             u.*,

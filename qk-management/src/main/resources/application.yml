@@ -5,7 +5,19 @@ spring:
     url: jdbc:mysql://localhost:3306/qk?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
     username: root
     password: 123456
+
+  servlet:
+    multipart:
+      max-file-size: 10MB  #上传的一个文件最大限制
+      max-request-size: 100MB #一次请求上传总大小限制（一次请求可以上传多个文件）
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+#阿里云OSS
+aliyun:
+  oss:
+    endpoint: https://oss-cn-beijing.aliyuncs.com
+    bucketName: ai-web-2025
+    region: cn-beijing

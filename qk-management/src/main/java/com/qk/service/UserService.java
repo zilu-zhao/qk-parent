@@ -7,8 +7,15 @@ import com.qk.entity.User;
 import java.util.List;
 
 public interface UserService {
-    PageResult selectUser(UserDto userDto);
-
     /*分页查询*/
+    PageResult selectUser(UserDto userDto);
+/*新增用户*/
+    void insertUser(User user);
 
+
+    void deleteUser(List<Integer> ids);
+
+    List<User> findbyid(Integer id);
+
+    void updateUser(User user);
 }
