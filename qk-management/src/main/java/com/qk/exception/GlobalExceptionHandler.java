@@ -14,4 +14,10 @@ public class GlobalExceptionHandler {
         //捕获到异常之后，响应一个标准的Result
         return Result.error("操作失败,请联系管理员");
     }
+    @ExceptionHandler
+    public Result buniessException(RuntimeException e){
+
+         log.error("业务异常",e);
+        return Result.error(e.getMessage());
+    }
 }

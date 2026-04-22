@@ -19,5 +19,5 @@ mybatis:
 aliyun:
   oss:
     endpoint: https://oss-cn-beijing.aliyuncs.com
-    bucketName: ai-web-2025
+    bucketName: ai-web-zilu-zhao
     region: cn-beijing

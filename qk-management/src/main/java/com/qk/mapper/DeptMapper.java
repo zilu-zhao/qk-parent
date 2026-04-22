@@ -19,4 +19,6 @@ public interface DeptMapper {
     void update(Dept dept);
 @Delete("delete  from dept where id=#{id}")
     void deleteDept(Integer id);
+@Select("select * from dept")
+    List<Dept> selectAll();
 }

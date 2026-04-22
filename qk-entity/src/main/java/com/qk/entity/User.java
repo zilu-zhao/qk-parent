@@ -67,4 +67,5 @@ public class User {
     //扩展属性
     private String deptName; //部门名称
     private String roleName; //角色名称
+    private  String roleLabel;
 }

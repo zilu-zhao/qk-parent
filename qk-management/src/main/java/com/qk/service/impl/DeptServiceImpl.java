@@ -54,6 +54,12 @@ dept.setUpdateTime(LocalDateTime.now());
     public void deleteDept(Integer id) {
         deptMapper.deleteDept(id);
     }
+/*查询所有部门*/
+    @Override
+    public List<Dept> selectAll() {
+
+        return deptMapper.selectAll();
+    }
 
 
 }

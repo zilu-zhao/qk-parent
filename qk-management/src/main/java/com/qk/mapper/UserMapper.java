@@ -22,4 +22,7 @@ public interface UserMapper {
     List<User> findbyid(Integer id);
 
     void updayeUser(User user);
+    //用户名密码校验
+    @Select("SELECT u.*, r.label as role_label FROM user u LEFT JOIN role r ON u.role_id = r.id WHERE u.username = #{username}")
+    User loginin(String username);
 }

@@ -10,6 +10,9 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @Slf4j
 @RestController
 @RequestMapping("/depts")
@@ -35,8 +38,8 @@ public class DeptController {
               PageResult<Dept> pageresult =deptService.selectDept(name,status,page,pageSize);
 return Result.success(pageresult);
     }
-    /*部门的修改 --回显 也就是查询*/
-    @GetMapping("/{id}")
+    /*部门的修改 --回显 也就是根据id查询*/
+    @GetMapping("/{id:\\d+}")
     public Result selectById(@PathVariable("id") Integer id){
         log.info("根据id查：{}",id);
     Dept dept=deptService.selectById(id);
@@ -56,5 +59,10 @@ return Result.success(pageresult);
         deptService.deleteDept(id);
         return Result.success();
     }
-
+/*查询所有部门*/
+    @GetMapping("/list")
+    public Result selectAll(){
+        List<Dept> list =deptService.selectAll();
+        return Result.success(list);
+    }
 }
