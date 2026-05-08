@@ -1,9 +1,11 @@
 package com.qk.controller;
 
+import com.qk.anno.OperaterLog;
 import com.qk.common.PageResult;
 import com.qk.common.Result;
 import com.qk.dto.RoleDto;
 import com.qk.entity.Role;
+import com.qk.service.CuleService;
 import com.qk.service.RoleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,7 @@ private  RoleService roleService;
         List<Role> list = roleService.selectAlll();
     return Result.success(list);
     }
+    @OperaterLog
     /*根据ID进行删除*/
     @DeleteMapping("/roles/{id}")
     public Result deletebyid(@PathVariable("id") Integer id){
@@ -36,4 +39,5 @@ private  RoleService roleService;
          roleService.deletebyid(id);
         return Result.success();
     }
+
 }

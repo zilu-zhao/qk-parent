@@ -1,5 +1,6 @@
 package com.qk.controller;
 
+import com.qk.anno.OperaterLog;
 import com.qk.common.PageResult;
 import com.qk.common.Result;
 import com.qk.entity.Dept;
@@ -19,6 +20,7 @@ import java.util.List;
 public class DeptController {
     @Autowired
     private DeptService deptService;
+    @OperaterLog
     /*@postMapping 是用来限定只有post请求该方法*/
     @PostMapping
     /*在POST、PUT请求方式中，如果前端传递json格式的请求参数，服务端可以使用Java对象封装，
@@ -38,6 +40,7 @@ public class DeptController {
               PageResult<Dept> pageresult =deptService.selectDept(name,status,page,pageSize);
 return Result.success(pageresult);
     }
+    @OperaterLog
     /*部门的修改 --回显 也就是根据id查询*/
     @GetMapping("/{id:\\d+}")
     public Result selectById(@PathVariable("id") Integer id){
@@ -45,6 +48,7 @@ return Result.success(pageresult);
     Dept dept=deptService.selectById(id);
     return Result.success(dept);
     }
+    @OperaterLog
     /*部门的修改--修改*/
     @PutMapping
     public Result update(@RequestBody Dept dept){
@@ -52,6 +56,7 @@ return Result.success(pageresult);
         deptService.update(dept);
      return  Result.success();
     }
+    @OperaterLog
     /*部门的删除*/
     @DeleteMapping("/{id}")
     public Result delete(@PathVariable("id") Integer id){

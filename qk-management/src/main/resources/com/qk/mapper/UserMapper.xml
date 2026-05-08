@@ -64,7 +64,7 @@
             <if test="name!=null and name.length()>0">u.name like concat("%",#{name},"%")</if>
             <if test="phone!=null">and u.phone like concat("%",#{phone},"%")</if>
             <if test="status!=null">  and u.status = #{status} </if>
-            <if test="deptId!=null"> and u.dept_id = #{deptId};</if>
+            <if test="deptId!=null"> and u.dept_id = #{deptId}</if>
         </where>
 
     </select>

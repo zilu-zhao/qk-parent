@@ -88,6 +88,7 @@ public class UserServiceImpl implements UserService {
         String jwt = JwtUtils.generateToken(claim);
         /*查出来user对象的值太多了，前端用不了，把user的值给loginResultVo，返回给controller*/
         LoginResultVo loginResultVo = new LoginResultVo();
+        loginResultVo.setId(user.getId());
         loginResultVo.setUsername(user.getUsername());
         loginResultVo.setName(user.getName());
         loginResultVo.setImage(user.getImage());

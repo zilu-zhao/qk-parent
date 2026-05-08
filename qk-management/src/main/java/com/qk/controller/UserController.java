@@ -1,5 +1,6 @@
 package com.qk.controller;
 
+import com.qk.anno.OperaterLog;
 import com.qk.common.PageResult;
 import com.qk.common.Result;
 import com.qk.dto.UserDto;
@@ -26,6 +27,7 @@ public class UserController {
                  return Result.success(pg);
     }
     /*添加用户*/
+    @OperaterLog
     @PostMapping
     public Result InsertUser(@RequestBody User user){
         log.info("添加用户+{}",user);
@@ -33,6 +35,7 @@ public class UserController {
         return  Result.success();
     }
     /*删除用户-批量删除*/
+    @OperaterLog
     @DeleteMapping("/{ids}")
     public  Result delectUser(@PathVariable("ids") List<Integer> ids){
         log.info("批量删除+{}",ids);
@@ -47,6 +50,7 @@ return Result.success();
         return Result.success(list);
     }
     /*修改用户*/
+    @OperaterLog
     @PutMapping
     public Result updateUser(@RequestBody User user){
         log.info("修改用户+{}",user);

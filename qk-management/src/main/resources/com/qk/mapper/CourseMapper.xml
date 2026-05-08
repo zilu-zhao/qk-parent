@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qk.mapper.CourseMapper">
+    <select id="selectCoursePage" resultType="com.qk.entity.Course">
+        SELECT id, subject, name, price, target, description, create_time AS createTime, update_time AS updateTime
+        FROM course
+        <where>
+            <if test="dto.name != null and dto.name != ''">
+                AND name LIKE CONCAT('%', #{dto.name}, '%')
+            </if>
+            <if test="dto.subject != null">
+                AND subject = #{dto.subject}
+            </if>
+            <if test="dto.target != null">
+                AND target = #{dto.target}
+            </if>
+        </where>
+        ORDER BY create_time DESC
+    </select>
+</mapper>

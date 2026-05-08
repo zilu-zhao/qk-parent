@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qk.mapper.CuleMapper">
+
+
+    <select id="listselect" resultType="com.qk.entity.Clue">
+        select  c.* ,u.name as assign_name  from clue c left join user u on c.user_id=u.id
+        <where>
+            <if test="clueQueryDto.clueId!=null">and c.id= #{clueQueryDto.clueId} </if>
+            <if test="clueQueryDto.phone!=null and clueQueryDto.phone.length()>0"> and c.phone like concat('%',#{clueQueryDto.phone},'%')</if>
+            <if test="clueQueryDto.status!=null"> and c.status =#{clueQueryDto.status}</if>
+            <if test="clueQueryDto.channel!=null">and  c.channel=#{clueQueryDto.channel} </if>
+            <if test="clueQueryDto.assignName!=null and clueQueryDto.assignName.length()>0">and u.name like concat('%', #{clueQueryDto.assignName}, '%')</if>
+        </where>
+        order by c.update_time desc
+    </select>
+
+    <!--
+       如果SQL语句查询的结果中，字段名与属性名不一致，对应不上，就需要手动配置它们的映射关系
+       即：手动配置一下，告诉Mybatis框架，某个字段对应哪个属性
+       做法：在xml里要使用resultMap属性，代替掉select标签上的resultType属性
+           resultType="实体类的全限定类名"：仅适用于字段名和属性名能够一一对应上，Mybatis会自动映射封装
+           resultMap：用于 字段名和属性名对应不上的情况，用于手动配置映射关系
+       注意：select标签上的resultType和resultMap必须二选一，不能同时出现
+       resultMap的用法：
+           1. 先定义一个resultMap标签，这个标签上有id唯一标识。 在标签里配置  xxx属性 对应 xx字段
+           2. 在select标签上使用resultMap="唯一标识"
+
+          如果字段名和属性名相同，可以省略不配置<result property="属性名" column="字段名">，
+          但需要在resultMap标签上加autoMapping=true。 但是id主键的映射关系，无论如何 都必须要配置
+       -->
+    <resultMap id="clueresuleMap" type="com.qk.entity.Clue" autoMapping="true">
+        <!--主键字段的映射配置：用id标签-->
+        <id property="id" column="id"/>
+        <!--非主键字段的映射配置：用result标签。-->
+        <!--<result property="phone" column="phone"/>
+        <result property="channel" column="channel"/>-->
+        <!--集合类型的属性：用collection标签-->
+        <collection property="trackRecords" ofType="com.qk.entity.ClueTrackRecord">
+            <id property="id" column="ctr_id"/>
+            <result property="clueId" column="ctr_clue_id"/>
+            <result property="userId" column="ctr_user_id"/>
+            <result property="subject" column="ctr_subject"/>
+            <result property="level" column="ctr_level"/>
+            <result property="record" column="ctr_record"/>
+            <result property="nextTime" column="ctr_next_time"/>
+            <result property="type" column="ctr_type"/>
+            <result property="falseReason" column="ctr_false_reason"/>
+            <result property="createTime" column="crt_create_time"/>
+            <result property="assignName" column="u_assignName"/>
+        </collection>
+    </resultMap>
+    <select id="selectByidd" resultMap="clueresuleMap" >
+        select c.*,
+               ctr.id ctr_id,
+               ctr.clue_id ctr_clue_id,
+               ctr.user_id ctr_user_id,
+               ctr.subject ctr_subject,
+               ctr.level ctr_level,
+               ctr.record ctr_record,
+               ctr.next_time ctr_next_time,
+               ctr.type ctr_type,
+               ctr.false_reason ctr_false_reason ,
+               ctr.create_time crt_create_time,
+               u.name u_assignName
+        from clue c left join clue_track_record ctr on c.id = ctr.clue_id
+                    left join user u on c.user_id = u.id
+        where c.id= #{id}
+    </select>
+</mapper>

@@ -5,15 +5,23 @@ spring:
     url: jdbc:mysql://localhost:3306/qk?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
     username: root
     password: 123456
+  data:  #redis配置项
+    redis:
+      host: 127.0.0.1
+      port: 6379
 
   servlet:
     multipart:
       max-file-size: 10MB  #上传的一个文件最大限制
       max-request-size: 100MB #一次请求上传总大小限制（一次请求可以上传多个文件）
-mybatis:
+mybatis-plus:
   configuration:
-    map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+  mapper-locations: mapper/*.xml
+  global-config:
+    db-config:
+      id-type: auto
 
 #阿里云OSS
 aliyun:

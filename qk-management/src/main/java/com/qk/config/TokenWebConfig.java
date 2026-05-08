@@ -15,7 +15,7 @@ public class TokenWebConfig implements WebMvcConfigurer {
     private TokenInterceptor tokenInterceptor;
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        /*注册自定义拦截器对象*/
+       /* 注册自定义拦截器对象*/
         registry.addInterceptor(tokenInterceptor)
                 .addPathPatterns("/**")   //设置拦截范围
                 .excludePathPatterns("/login");//设置排除范围
